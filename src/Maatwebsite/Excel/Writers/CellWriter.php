@@ -1,6 +1,7 @@
 <?php namespace Maatwebsite\Excel\Writers;
 
 use Maatwebsite\Excel\Classes\LaravelExcelWorksheet;
+use PHPExcel_Style_Border;
 
 /**
  *
@@ -32,10 +33,15 @@ class CellWriter {
      * @param array                 $cells
      * @param LaravelExcelWorksheet $sheet
      */
-    public function __construct($cells, LaravelExcelWorksheet $sheet)
+    public function __construct( $cells, LaravelExcelWorksheet $sheet )
     {
         $this->cells = $cells;
         $this->sheet = $sheet;
+
+        if (str_contains( $this->cells, ':' )) {
+            $this->setBorder( PHPExcel_Style_Border::BORDER_THIN, PHPExcel_Style_Border::BORDER_THIN, PHPExcel_Style_Border::BORDER_THIN,
+                PHPExcel_Style_Border::BORDER_THIN );
+        }
     }
 
     /**
